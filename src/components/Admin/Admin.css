@@ -1,0 +1,433 @@
+.admin-container {
+    min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f6f9fc 0%, #ecf3f8 100%);
+}
+
+.admin-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.admin-logo {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-container h1 {
+    color: #2D3748;
+    font-size: 2rem;
+    margin: 0;
+    flex: 1;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.logout-btn {
+    background: #EF4444;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #DC2626;
+}
+
+.back-btn {
+    background: #3B82F6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #2563EB;
+}
+
+.add-prompt-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.add-prompt-form h2 {
+    color: #4A5568;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4A5568;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4ADE80;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+.add-btn {
+    background: #4ADE80;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+    background: #22C55E;
+    transform: translateY(-1px);
+}
+
+.add-btn img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.prompts-list {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.prompts-list h2 {
+    color: #4A5568;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.category-section {
+    margin-bottom: 2rem;
+}
+
+.category-section h3 {
+    color: #4A5568;
+    padding: 1rem;
+    background: #F7FAFC;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.category-section h3 img {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+}
+
+.prompt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: #F7FAFC;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.prompt-item:hover {
+    background: #EDF2F7;
+}
+
+.prompt-item p {
+    margin: 0;
+    color: #2D3748;
+}
+
+.prompt-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.edit-btn {
+    background: #3B82F6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+    background: #2563EB;
+}
+
+.edit-btn img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+.delete-btn {
+    background: #EF4444;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #DC2626;
+}
+
+.delete-btn img {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+.edit-form {
+    width: 100%;
+    padding: 1rem;
+    background: #F8FAFC;
+    border-radius: 8px;
+}
+
+.edit-form .form-group {
+    margin-bottom: 1rem;
+}
+
+.edit-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+.edit-form input:focus {
+    outline: none;
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.save-btn {
+    background: #10B981;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: #059669;
+}
+
+.cancel-btn {
+    background: #6B7280;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+    background: #4B5563;
+}
+
+.mt-8 {
+    margin-top: 2rem;
+}
+
+.user-prompts {
+    background: #F8FAFC;
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.user-prompts .prompt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.prompt-content {
+    flex: 1;
+}
+
+.prompt-content p {
+    margin-bottom: 0.25rem;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+.text-gray-500 {
+    color: #6B7280;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.py-4 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Login styles */
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f6f9fc 0%, #ecf3f8 100%);
+}
+
+.login-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.login-box h2 {
+    color: #2D3748;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.error-message {
+    background: #FEE2E2;
+    color: #DC2626;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.login-btn {
+    background: #4ADE80;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #22C55E;
+    transform: translateY(-1px);
+}
+
+
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #E2E8F0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group select:focus {
+    outline: none;
+    border-color: #4ADE80;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+}
+
+
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+    }
+    
+    .add-prompt-form,
+    .prompts-list {
+        padding: 1rem;
+    }
+    
+    .admin-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .header-buttons {
+        flex-direction: column;
+    }
+}

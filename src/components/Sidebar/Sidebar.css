@@ -1,0 +1,376 @@
+.sidebar {
+    min-height: 100vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    background: linear-gradient(180deg, #2D3748 0%, #1A202C 100%);
+    border-right: 1px solid rgba(74, 222, 128, 0.1);
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+    animation: sidebarEnter 0.6s ease-out;
+    backdrop-filter: blur(10px);
+}
+
+@keyframes sidebarEnter {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar img {
+    width: 20px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.sidebar .menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(145deg, #3B4858, #2D3748);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2),
+                -2px -2px 5px rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(74, 222, 128, 0.1);
+    animation: menuEnter 0.6s ease-out 0.3s backwards;
+}
+
+@keyframes menuEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sidebar .menu:hover {
+    transform: translateY(-2px);
+    border-color: rgba(74, 222, 128, 0.3);
+    filter: brightness(1.1);
+}
+
+.sidebar .menu:active {
+    transform: scale(0.95);
+}
+
+.sidebar .menu img {
+    filter: invert(1);
+    opacity: 0.9;
+    transition: all 0.4s ease;
+}
+
+.sidebar .menu:hover img {
+    transform: rotate(180deg);
+}
+
+.sidebar .new-chat {
+    margin-top: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #4ADE80 0%, #2DD4BF 100%);
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(74, 222, 128, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: newChatEnter 0.6s ease-out 0.6s backwards;
+    position: relative;
+    overflow: hidden;
+}
+
+@keyframes newChatEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sidebar .new-chat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.sidebar .new-chat:hover::before {
+    left: 100%;
+}
+
+.sidebar .new-chat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(74, 222, 128, 0.3);
+    background: linear-gradient(135deg, #2DD4BF 0%, #4ADE80 100%);
+}
+
+.sidebar .new-chat:active {
+    transform: translateY(1px);
+}
+
+.sidebar .new-chat img {
+    filter: brightness(0) invert(1);
+    width: 18px;
+    height: 18px;
+    animation: rotateIcon 0.6s ease-out;
+}
+
+@keyframes rotateIcon {
+    from {
+        transform: rotate(-180deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+.sidebar .recent {
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease;
+    margin-top: 30px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.recent-entry-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 4px 0;
+    animation: entryFade 0.5s ease-out backwards;
+}
+
+@keyframes entryFade {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.delete-btn {
+    position: absolute;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.recent-entry-wrapper:hover .delete-btn {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.delete-btn:hover {
+    background-color: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+    transform: scale(1.1);
+}
+
+.sidebar .recent-entry {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    color: #E2E8F0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar .recent-entry::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(74, 222, 128, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+}
+
+.sidebar .recent-entry:hover::before {
+    transform: translateX(100%);
+}
+
+.sidebar .recent-entry:hover {
+    background: linear-gradient(145deg, rgba(74, 222, 128, 0.1), rgba(45, 212, 191, 0.1));
+    border-color: rgba(74, 222, 128, 0.2);
+    transform: translateX(5px);
+}
+
+.sidebar .recent-entry img {
+    filter: invert(1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.sidebar .recent-entry:hover img {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.sidebar .recent-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #E2E8F0;
+    font-weight: 600;
+    font-size: 14px;
+    padding-left: 12px;
+    border-left: 3px solid #4ADE80;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: titleFade 0.5s ease-out;
+    position: relative;
+}
+
+@keyframes titleFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sidebar .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(74, 222, 128, 0.1);
+    animation: bottomFade 0.5s ease-out 0.9s backwards;
+}
+
+@keyframes bottomFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sidebar .bottom-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    color: #E2E8F0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar .bottom-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(74, 222, 128, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.sidebar .bottom-item:hover::before {
+    left: 100%;
+}
+
+.sidebar .bottom-item:hover {
+    background: linear-gradient(145deg, rgba(74, 222, 128, 0.1), rgba(45, 212, 191, 0.1));
+    border-color: rgba(74, 222, 128, 0.2);
+    transform: translateX(5px);
+}
+
+.sidebar .bottom-item img {
+    filter: invert(1);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.sidebar .bottom-item:hover img {
+    transform: rotate(15deg);
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .sidebar.extended {
+        transform: translateX(0);
+    }
+}
