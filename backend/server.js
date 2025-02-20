@@ -5,9 +5,14 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+// CORS configuration
+app.use(cors({
+    origin: ['https://aiit-chatbot-it.vercel.app', 'http://localhost:3000'],
+    credentials: true
+}));
 app.use(express.json());
 
+// MongoDB connection options
 const dbOptions = {
     dbName: 'datachatbot',
     serverSelectionTimeoutMS: 60000,
@@ -15,19 +20,22 @@ const dbOptions = {
     connectTimeoutMS: 60000
 };
 
+// Database connection function
 async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGO_URI, dbOptions);
         console.log('เชื่อมต่อ MongoDB สำเร็จ');
     } catch (err) {
         console.error('MongoDB connection error:', err);
+        console.error('Connection string:', process.env.MONGO_URI?.split('@')[0].replace(/:[^:]+@/, ':****@'));
+        console.error('Database name:', dbOptions.dbName);
         process.exit(1);
     }
 }
 
 connectDB();
 
-// Schema - ปรับให้ตรงกับข้อมูลใน MongoDB
+// Schemas
 const promptSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     type: String,
@@ -37,19 +45,18 @@ const promptSchema = new mongoose.Schema({
     strict: false
 });
 
-const Prompt = mongoose.model('Prompt', promptSchema);
-
-// เพิ่ม Schema และ Model สำหรับ userprompt collection
 const userPromptSchema = new mongoose.Schema({
-  text: String
+    text: String
 }, { 
-  collection: 'userprompt',
-  strict: false
+    collection: 'userprompt',
+    strict: false
 });
 
+// Models
+const Prompt = mongoose.model('Prompt', promptSchema);
 const UserPrompt = mongoose.model('UserPrompt', userPromptSchema);
 
-// API endpoint เดิม
+// Original prompt endpoint (keeping for compatibility)
 app.get('/prompt', async (req, res) => {
     try {
         console.log('Attempting to fetch prompts...');
@@ -70,12 +77,11 @@ app.get('/prompt', async (req, res) => {
     }
 });
 
-// API endpoint ใหม่สำหรับดึงข้อมูลที่จัดกลุ่มแล้ว
+// API endpoint for grouped prompts
 app.get('/api/prompts', async (req, res) => {
     try {
         const prompts = await Prompt.find().select('-__v');
         
-        // จัดกลุ่มข้อมูลตาม type
         const groupedPrompts = prompts.reduce((acc, prompt) => {
             const type = prompt.type;
             if (!acc[type]) {
@@ -89,7 +95,6 @@ app.get('/api/prompts', async (req, res) => {
             return acc;
         }, {});
 
-        // แปลงเป็นรูปแบบที่ frontend ต้องการ
         const formattedPrompts = Object.entries(groupedPrompts).map(([category, prompts]) => ({
             category,
             prompts
@@ -105,30 +110,32 @@ app.get('/api/prompts', async (req, res) => {
     }
 });
 
-// เพิ่ม API endpoint ใหม่สำหรับบันทึกข้อความจากผู้ใช้
+// User prompts endpoints
 app.post('/api/userprompt', async (req, res) => {
-  try {
-    const { text } = req.body;
-    const userPrompt = new UserPrompt({ text });
-    await userPrompt.save();
-    res.status(201).json(userPrompt);
-  } catch (error) {
-    console.error('Error saving user prompt:', error);
-    res.status(500).json({ error: 'Failed to save user prompt' });
-  }
+    try {
+        const { text } = req.body;
+        const userPrompt = new UserPrompt({ text });
+        await userPrompt.save();
+        res.status(201).json(userPrompt);
+    } catch (error) {
+        console.error('Error saving user prompt:', error);
+        res.status(500).json({ error: 'Failed to save user prompt' });
+    }
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error('Global Error:', err);
-    res.status(500).json({ 
-        success: false, 
-        message: 'เกิดข้อผิดพลาดบางอย่าง!',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    });
+app.get('/api/userprompt', async (req, res) => {
+    try {
+        const userPrompts = await UserPrompt.find()
+            .sort({ createdAt: -1 })
+            .limit(100);
+        res.json(userPrompts);
+    } catch (error) {
+        console.error('Error fetching user prompts:', error);
+        res.status(500).json({ error: 'Failed to fetch user prompts' });
+    }
 });
 
-// สร้าง prompt ใหม่
+// Admin endpoints
 app.post('/api/admin/prompts', async (req, res) => {
     try {
         const { type, text } = req.body;
@@ -151,7 +158,6 @@ app.post('/api/admin/prompts', async (req, res) => {
     }
 });
 
-// ลบ prompt
 app.delete('/api/admin/prompts/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -168,7 +174,6 @@ app.delete('/api/admin/prompts/:id', async (req, res) => {
     }
 });
 
-// แก้ไข prompt
 app.put('/api/admin/prompts/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -195,18 +200,6 @@ app.put('/api/admin/prompts/:id', async (req, res) => {
     }
 });
 
-app.get('/api/userprompt', async (req, res) => {
-    try {
-        const userPrompts = await UserPrompt.find()
-            .sort({ createdAt: -1 }) // เรียงจากใหม่ไปเก่า
-            .limit(100); // จำกัดจำนวนที่ดึงมา
-        res.json(userPrompts);
-    } catch (error) {
-        console.error('Error fetching user prompts:', error);
-        res.status(500).json({ error: 'Failed to fetch user prompts' });
-    }
-});
-
 app.delete('/api/userprompt/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -221,6 +214,25 @@ app.delete('/api/userprompt/:id', async (req, res) => {
         console.error('Error deleting user prompt:', error);
         res.status(500).json({ error: 'ไม่สามารถลบคำถามได้' });
     }
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        dbStatus: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
+        timestamp: new Date().toISOString()
+    });
+});
+
+// Global error handling
+app.use((err, req, res, next) => {
+    console.error('Global Error:', err);
+    res.status(500).json({ 
+        success: false, 
+        message: 'เกิดข้อผิดพลาดบางอย่าง!',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+    });
 });
 
 const PORT = process.env.PORT || 5000;
